@@ -1,0 +1,14 @@
+Date_of_birth,Salary,First_name,Last_name,Height
+1990-03-26,25280,Michael,Johnson,152
+1988-05-21,28500,Harley,Smith,185
+1982-01-29,50500,Arthur,Harrison,168
+1982-01-29,47450,Cameron,White,170
+1981-01-19,23789,Allan,Hernandez,178
+1980-08-10,31250,Nathaniel,Stewert,125
+1971-05-19,41000,Nathan,Astle,155
+1971-05-18,41000,Nathan,Astle,155
+1971-05-18,40230,John,Smith,invalid string
+1971-05-18,40230,Daniel,Clerk,190
+1971-05-18,40230,Elliot,Luca,172
+1971-05-18,40230,Methews,Haiden,165
+1971-05-18,38990,Steve,Finn,189
