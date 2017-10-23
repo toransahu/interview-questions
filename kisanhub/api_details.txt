@@ -1,0 +1,4 @@
+http://datapoint.metoffice.gov.uk/public/data/val/wxfcs/all/json/3840?res=3hourly&key=d249b3a6-5145-4174-8149-fbd4646736fa
+
+API Key: d249b3a6-5145-4174-8149-fbd4646736fa
+username: toransahu
