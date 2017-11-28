@@ -7,7 +7,7 @@ Created on Mon Nov 27 21:39:39 2017
 """
 from roman_calc import roman_to_decimal
 
-print(roman_to_decimal('D'))
+print(roman_to_decimal('CMXIL'))
 
 """
 
