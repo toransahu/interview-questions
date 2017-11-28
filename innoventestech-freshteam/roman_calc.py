@@ -108,8 +108,10 @@ def roman_calc(operand1, operator, operand2):
             return decimal_to_roman(op1 - op2)
         elif operator == '/':
             res = op1 // op2
-            if (res<1):
-                print("Un-supported operands or their order incountered while division")
+            if (res < 1):
+                print(
+                    "Un-supported operands or their order incountered while division"
+                )
                 return
             print(
                 "Warning: Roman numeral does not support floating points, so result will be floored!!!"
@@ -123,4 +125,4 @@ if __name__ == '__main__':
     opr = '+'
     result = roman_calc(op1, opr, op2)
     if result != None:
-        print(op1,opr,op2,"=",result)
+        print(op1, opr, op2, "=", result)
