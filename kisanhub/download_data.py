@@ -4,6 +4,7 @@ Created on Wed Nov 29 10:49:20 2017
 
 @author: toran.sahu
 """
+import os 
 
 
 def download_file(url, proxies):
@@ -16,35 +17,25 @@ def download_file(url, proxies):
 
 def save_file(loc, filename, response):
     """Save a raw file into disk"""
-    import os
-    import codecs
-    file_loc = os.path.join(loc, filename)
-    with codecs.open(file_loc, 'w', response.encoding) as f:
+    import codecs    
+
+    file = os.path.join(loc, filename)
+    with codecs.open(file, 'w', response.encoding) as f:
         f.write(response.text)
 
 
-def download_data(regions, attributes):
+def download_data(regions, attributes,data_loc,proxies):
     """Download all data"""
-
-    import platform
+    import shutil
 
     url_prefix = "https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets"
 
-    ## check in which pc i'm working
-    if platform.system() == 'Windows':
-        # loc = "D:\Toran\WorkSpace\practice\interview\kisanhub\data"
-        loc = ".\data"
-        proxies = {
-            "http": "http://toran.sahu:L440Qthink@10.74.91.103:80",
-            "https": "http://toran.sahu:L440Qthink@10.74.91.103:80",
-        }
+    # check existance of data folder    
+    if os.path.exists(data_loc):
+        shutil.rmtree(data_loc, ignore_errors=True)
+        os.makedirs(data_loc)
     else:
-        # loc = "/mnt/ExternalHDD/E/workSpace/practice/interview/kisanhub/data"
-        loc = "./data"
-        proxies = {
-            "http": None,
-            "https": None,
-        }
+        os.makedirs(data_loc)
 
     ## download and save all the files
     for region in regions:
@@ -54,10 +45,7 @@ def download_data(regions, attributes):
             # download file
             response = download_file(url, proxies)
             # save file @ ./data/
-            save_file(loc, filename, response)
+            save_file(data_loc, filename, response)
 
 
-regions = ['UK', 'England', 'Wales', 'Scotland']
-attributes = ['Tmax', 'Tmin', 'Tmean', 'Sunshine', 'Rainfall']
-if __name__ == '__main__':
-    download_data(regions, attributes)
+

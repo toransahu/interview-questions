@@ -16,28 +16,20 @@ def get_data(data_loc):
     return files
 
 
-def clean_data():
+def clean_data(data_loc):
     """Clean downloaded data."""
-    import platform
-
-    if platform.system == 'Windows':
-        data_loc = '.\data'
-    else:
-        data_loc = './data'
 
     files = get_data(data_loc)
 
-    for file in files:
-        file_loc = join(data_loc, file)
+    for filename in files:
+        file = join(data_loc, filename)
         # read file
-        with open(file_loc, 'r') as f:
+        with open(file, 'r') as f:
             lines = f.readlines()
 
         # remove first 7 lines
         # write lines to the file
-        with open(file_loc, 'w') as f:
+        with open(file, 'w') as f:
             lines = lines[7:]
             f.writelines(lines)
 
-
-clean_data()
