@@ -5,9 +5,7 @@ def t3():
     txt_file = file_loc + '/Tmax_UK.txt'
     csv_file = file_loc + '/Tmax_UK.csv'
     if os.path.exists(csv_file):
-        os.remove(csv_file)    
-    length = [-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4,-3,4,-2,4]
-    length = [8,6,8,6,8,6,8,6,8,6,8,6,8,6,8,6,8,6,8,6,8,6,8,6,8,6,8,6,8,6,8,6,8,6]
+        os.remove(csv_file)
     colspec= [(1,9),
                 (9,15),
                 (15,23),
@@ -46,12 +44,12 @@ def t3():
     cols = [
         'JAN', 'Year1', 
         'FEB', 'Year2', 
-        #'MAR', 'Year3',
-        #'APR', 'Year4', 
-        #'MAY', 'Year5', 
-        #'JUN', 'Year6', 'JUL', 'Year7', 'AUG', 'Year8', 'SEP', 'Year9',
-        #'OCT', 'Year10', 'NOV', 'Year11', 'DEC', 'Year12', 'WIN', 'Year13', 'SPR',
-        #'Year14', 'SUM', 'Year15', 'AUT', 'Year16', 'ANN', 'Year17'
+        'MAR', 'Year3',
+        'APR', 'Year4', 
+        'MAY', 'Year5', 
+        'JUN', 'Year6', 'JUL', 'Year7', 'AUG', 'Year8', 'SEP', 'Year9',
+        'OCT', 'Year10', 'NOV', 'Year11', 'DEC', 'Year12', 'WIN', 'Year13', 'SPR',
+        'Year14', 'SUM', 'Year15', 'AUT', 'Year16', 'ANN', 'Year17'
     ]
     
     df = pd.read_fwf(txt_file, 
@@ -65,4 +63,7 @@ def t3():
                      ).to_csv(csv_file)
     #print(df)
 
-t3()
+with open('some/path/to/file.csv') as f:
+    reader = csv.reader(f, delimiter=',')
+    header = next(reader)
+    Foo.objects.bulk_create([Foo(first_name=row[0], last_name=row[1]) for row in reader])

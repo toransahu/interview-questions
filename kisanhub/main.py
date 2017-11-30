@@ -5,10 +5,10 @@ Created on Wed Nov 29 20:57:13 2017
 
 @author: toran
 """
-
+import platform
 from download_data import download_data
 from clean_data import clean_data
-import platform
+from transform_data import fwf_to_csv
 
 regions = ['UK', 'England', 'Wales', 'Scotland']
 attributes = ['Tmax', 'Tmin', 'Tmean', 'Sunshine', 'Rainfall']
@@ -31,8 +31,10 @@ else:
     }
 
 if __name__ == '__main__':
-    print("Data downloading...")
+    print(download_data.__doc__)
     download_data(regions, attributes,data_loc,proxies)
-    print("Cleaning data..")
+    print(clean_data.__doc__)
     clean_data(data_loc)
-    print("Data is ready.")
+    print(fwf_to_csv.__doc__)
+    fwf_to_csv(data_loc)
+    

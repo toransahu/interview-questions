@@ -25,7 +25,7 @@ def save_file(loc, filename, response):
 
 
 def download_data(regions, attributes,data_loc,proxies):
-    """Download all data"""
+    """Download all data."""
     import shutil
 
     url_prefix = "https://www.metoffice.gov.uk/pub/data/weather/uk/climate/datasets"
