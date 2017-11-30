@@ -20,7 +20,8 @@ def panda():
         'OCT', 'Year', 'NOV', 'Year', 'DEC', 'Year', 'WIN', 'Year', 'SPR',
         'Year', 'SUM', 'Year', 'AUT', 'Year', 'ANN', 'Year'
     ]
-    dataframe = pd.read_csv(file, sep='\s+', names=cols)
+    dataframe = pd.read_csv(file, sep='\s+', 
+                            names=cols, encoding='ANSI')
     print(dataframe)
 
 
@@ -51,5 +52,5 @@ def csv():
             break
 
 
-csv()
-#panda()
+#csv()
+panda()
