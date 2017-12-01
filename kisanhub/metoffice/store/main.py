@@ -55,7 +55,7 @@ def create_or_update(aregion,aseason,ayear,attribute,val):
     
 def csv_to_db():
     """Save data from CSV to DB"""
-    data_loc = "..\data"
+    data_loc = "../data"
     #data_loc = "..\..\data"
     files = [file for file in list_files(data_loc) if file.endswith('.csv')]
     
@@ -69,12 +69,15 @@ def csv_to_db():
             for i in range(1, len(cols)-1,2):
                 season = cols[i]
                 for row in reader:
-                    if row[i].strip() != '':
-                        val = float(row[i])
+                    val = row[i].strip()
+                    year = row[i+1].strip()
+                    if val != '':
+                        val = float(val)
                     else:
-                        val = 9999
-                    if row[i].strip() != '':
-                        year = int(row[i+1].rstrip('.0'))
+                        val = 9999999
+                    if  year != '':
+                        #year = int(row[i+1].rstrip('.0'))
+                        year = int(float(year))
                     else:
                         year = 9999
                     create_or_update(region,season,year, attribute, val)
