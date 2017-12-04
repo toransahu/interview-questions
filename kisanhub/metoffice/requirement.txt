@@ -1,0 +1,3 @@
+django-adaptor
+lxml
+graphos

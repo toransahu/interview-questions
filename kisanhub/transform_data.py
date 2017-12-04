@@ -8,6 +8,8 @@ Created on Thu Nov 30 20:20:59 2017
 import  os
 import pandas as pd
 from lib import list_files
+from os.path import basename
+import csv
 
 def fwf_to_csv(data_loc):
     """Convert all Fixed-Width data files to CSV."""
@@ -62,3 +64,39 @@ def fwf_to_csv(data_loc):
                          #skiprows = [0]
                          ).to_csv(csv_file)
     
+
+    
+def consolidate_data(data_loc):
+    """Save data from all CSV to single CSV."""
+    #data_loc = "./data"
+    #data_loc = "..\..\data"
+    final_file = os.path.join(data_loc,'consolidated.csv')
+    if os.path.exists(final_file):
+        os.remove(final_file)
+    files = [file for file in list_files(data_loc) if file.endswith('.csv')]
+    final = open(final_file,'w')
+    for file in files:
+        attribute, region = (os.path.splitext(basename(file))[0]).split('_')
+        #print(attribute, region)
+        with open(file) as c :
+            header = c.readline()
+            cols = header.split(',')
+            reader = list(csv.reader(c,delimiter=','))
+            for i in range(1, len(cols)-1,2):
+                season = cols[i]
+                for row in reader:
+                    val = row[i].strip()
+                    year = row[i+1].strip()
+                    if val != '':
+                        val = float(val)
+                    else:
+                        val = 9999999
+                    if  year != '':
+                        #year = int(row[i+1].rstrip('.0'))
+                        year = int(float(year))
+                    else:
+                        year = 9999
+
+                    final.write("'"+region+"',"+"'"+season+"',"+str(year)+",'"+ attribute+"',"+ str(val))
+                    final.write('\n')
+    final.close()

@@ -8,7 +8,7 @@ Created on Wed Nov 30 20:57:13 2017
 import platform
 from download_data import download_data
 from clean_data import clean_data
-from transform_data import fwf_to_csv
+from transform_data import fwf_to_csv, consolidate_data
 
 regions = ['UK', 'England', 'Wales', 'Scotland']
 attributes = ['Tmax', 'Tmin', 'Tmean', 'Sunshine', 'Rainfall']
@@ -37,4 +37,6 @@ if __name__ == '__main__':
     clean_data(data_loc)
     print(fwf_to_csv.__doc__)
     fwf_to_csv(data_loc)
+    print(consolidate_data.__doc__)
+    consolidate_data(data_loc)
     
