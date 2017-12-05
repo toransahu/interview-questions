@@ -11,7 +11,8 @@ app_name='store'
 #doing changes to implement Generic Views
 
 urlpatterns=[
-    url(r'^$',views.fn,name='index'),
+    url(r'^fn$',views.fn,name='fn'),
+    #url(r'^fn2$',views.fn2,name='fn2'),
 ]
 
 #urlpatterns += staticfiles_urlpatterns()
