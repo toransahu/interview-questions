@@ -1,0 +1,5 @@
+paramiko
+# smtplib, in-buit
+pycrypto
+pytest
+pypiwin32 # win32api
