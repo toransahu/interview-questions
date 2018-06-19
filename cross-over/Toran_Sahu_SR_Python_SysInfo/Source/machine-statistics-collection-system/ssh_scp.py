@@ -13,7 +13,7 @@ class SSH:
     transport = None
  
     def __init__(self, address, port, username, password):
-        print("Connecting to server.")
+        print("Connecting to server.\n")
         self.client = client.SSHClient()
         self.client.set_missing_host_key_policy(client.AutoAddPolicy())
         self.client.connect(address, port, username=username, password=password, look_for_keys=False)
@@ -45,13 +45,13 @@ class SSH:
             print("Connection not opened.")
             
     def upload_file(self, localpath, remotepath):
-        sftp = SFTPClient.from_transport(self.transport)
-        sftp.put(localpath, remotepath)
 # =============================================================================
-#         from scp import SCPClient
-#         scp = SCPClient(self.get_transport())
-#         scp.put(source, remote_path=destination)
+#         sftp = SFTPClient.from_transport(self.transport)
+#         sftp.put(localpath, remotepath)
 # =============================================================================
+        from scp import SCPClient
+        scp = SCPClient(self.client.get_transport())
+        scp.put(localpath, remotepath)
     
     def closeConnection(self):
         """Close COnnection."""
@@ -66,30 +66,40 @@ class SSH:
     
 
 if __name__ == '__main__':
+    from os.path import basename
+    from os.path import join
+    
     hostname = '192.168.1.9'
     port = 22
     username = 'toran' 
-    password = '\''
-    
+    password = '\''    
     results = []
-    errors = []
-    
-    uptime_command = 'uptime -p'
-    mem_usage_command = "free -m | awk 'FNR == 2 {usage= $3*100/$2} END {print usage}'"
-    cpu_usage_command = "grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}'"
-    
-    commands = [uptime_command, mem_usage_command, cpu_usage_command]
+    errors = []    
+# =============================================================================
+#     uptime_command = 'uptime -p'
+#     mem_usage_command = "free -m | awk 'FNR == 2 {usage= $3*100/$2} END {print usage}'"
+#     cpu_usage_command = "grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {print usage}'"
+#     commands = [uptime_command, mem_usage_command, cpu_usage_command]
+# =============================================================================
     
     try:
         ssh = SSH(hostname,port,username,password)
-        for command in commands:
-            results.append(ssh.sendCommand(command))
-            
-        print("Uptime:",results[0], end='')
-        print("Memory Usage:",results[1], end='')
-        print("CPU Usage:",results[2], end='')
-        ssh.upload_file('/mnt/ExternalHDD/test.txt','/mnt/ExternalHDD/E')
+# =============================================================================
+#         for command in commands:
+#             results.append(ssh.sendCommand(command))
+#             
+#         print("Uptime:",results[0], end='')
+#         print("Memory Usage:",results[1], end='')
+#         print("CPU Usage:",results[2], end='')
+# =============================================================================
+        localpath = '/mnt/ExternalHDD/test.sh'
+        remotepath = '/mnt/ExternalHDD/E'
+        ssh.upload_file(localpath,remotepath)
+        #print(ssh.sendCommand(join(remotepath, basename(localpath))))
+        #ssh.sendCommand('openssl enc -in /mnt/ExternalHDD/E/test.sh -aes-256-cbc > /mnt/ExternalHDD/E/out.txt.enc')
+        print(ssh.sendCommand('python tmp/script.py'))
     except Exception as e:
         print("Something wrong happened while fetching data from ssh client", e)
     finally:
         ssh.closeConnection()
+        print("Connection closed.")
